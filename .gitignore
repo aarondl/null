@@ -1,1 +1,7 @@
 coverage.out
+/.idea/vcs.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/null.iml
+.idea/workspace.xml

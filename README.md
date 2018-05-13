@@ -44,6 +44,9 @@ Nullable time.Time
 
 Marshals to JSON null if SQL source data is null. Uses `time.Time`'s marshaler.
 
+#### null.Duration
+Nullable time.Duration
+
 #### null.Float32
 Nullable float32.
 
