@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	int64JSON = []byte(`9223372036854775806`)
+	int64JSON       = []byte(`9223372036854775806`)
+	int64StringJSON = []byte(`"9223372036854775806"`)
 )
 
 func TestInt64From(t *testing.T) {
@@ -36,6 +37,11 @@ func TestUnmarshalInt64(t *testing.T) {
 	err := json.Unmarshal(int64JSON, &i)
 	maybePanic(err)
 	assertInt64(t, i, "int64 json")
+
+	var si Int64
+	err = json.Unmarshal(int64StringJSON, &si)
+	maybePanic(err)
+	assertInt64(t, si, "int64 json")
 
 	var null Int64
 	err = json.Unmarshal(nullJSON, &null)
