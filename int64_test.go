@@ -48,6 +48,11 @@ func TestUnmarshalInt64(t *testing.T) {
 	maybePanic(err)
 	assertNullInt64(t, null, "null json")
 
+	var bi Int64
+	err = json.Unmarshal(blankStringJSON, &bi)
+	maybePanic(err)
+	assertNullInt64(t, bi, "blank json string")
+
 	var badType Int64
 	err = json.Unmarshal(boolJSON, &badType)
 	if err == nil {
