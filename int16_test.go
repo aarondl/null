@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	int16JSON = []byte(`32766`)
+	int16JSON       = []byte(`32766`)
+	int16StringJSON = []byte(`"32766"`)
 )
 
 func TestInt16From(t *testing.T) {
@@ -37,10 +38,20 @@ func TestUnmarshalInt16(t *testing.T) {
 	maybePanic(err)
 	assertInt16(t, i, "int16 json")
 
+	var si Int16
+	err = json.Unmarshal(int16StringJSON, &si)
+	maybePanic(err)
+	assertInt16(t, si, "int16 string json")
+
 	var null Int16
 	err = json.Unmarshal(nullJSON, &null)
 	maybePanic(err)
 	assertNullInt16(t, null, "null json")
+
+	var bi Int16
+	err = json.Unmarshal(blankStringJSON, &bi)
+	maybePanic(err)
+	assertNullInt16(t, bi, "blank json string")
 
 	var badType Int16
 	err = json.Unmarshal(boolJSON, &badType)
