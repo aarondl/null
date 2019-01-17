@@ -39,7 +39,7 @@ func TestUnmarshalUint64(t *testing.T) {
 	var si Uint64
 	err = json.Unmarshal(uint64StringJSON, &si)
 	maybePanic(err)
-	assertUint64(t, si, "uint64 json")
+	assertUint64(t, si, "uint64 string json")
 
 	var null Uint64
 	err = json.Unmarshal(blankStringJSON, &null)
