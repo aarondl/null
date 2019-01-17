@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	uint8JSON = []byte(`254`)
+	uint8JSON       = []byte(`254`)
+	uint8StringJSON = []byte(`"254"`)
 )
 
 func TestUint8From(t *testing.T) {
@@ -37,10 +38,20 @@ func TestUnmarshalUint8(t *testing.T) {
 	maybePanic(err)
 	assertUint8(t, i, "uint8 json")
 
+	var si Uint8
+	err = json.Unmarshal(uint8StringJSON, &si)
+	maybePanic(err)
+	assertUint8(t, si, "uint8 string json")
+
 	var null Uint8
 	err = json.Unmarshal(nullJSON, &null)
 	maybePanic(err)
 	assertNullUint8(t, null, "null json")
+
+	var bi Uint8
+	err = json.Unmarshal(blankStringJSON, &bi)
+	maybePanic(err)
+	assertNullUint8(t, bi, "blank json string")
 
 	var badType Uint8
 	err = json.Unmarshal(boolJSON, &badType)
