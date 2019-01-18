@@ -69,7 +69,7 @@ func (f *Float32) UnmarshalJSON(data []byte) error {
 		f.Valid = false
 		return nil
 	default:
-		err = fmt.Errorf("json: cannot unmarshal %v into Go value of type null.Int32", reflect.TypeOf(v).Name())
+		err = fmt.Errorf("json: cannot unmarshal %v into Go value of type null.Float32", reflect.TypeOf(v).Name())
 	}
 
 	if r > math.MaxFloat32 {
