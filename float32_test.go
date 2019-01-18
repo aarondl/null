@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	float32JSON = []byte(`1.2345`)
+	float32JSON       = []byte(`1.2345`)
+	float32StringJSON = []byte(`"1.2345"`)
 )
 
 func TestFloat32From(t *testing.T) {
@@ -35,10 +36,20 @@ func TestUnmarshalFloat32(t *testing.T) {
 	maybePanic(err)
 	assertFloat32(t, f, "float32 json")
 
+	var sf Float32
+	err = json.Unmarshal(float32StringJSON, &sf)
+	maybePanic(err)
+	assertFloat32(t, sf, "float32 string json")
+
 	var null Float32
 	err = json.Unmarshal(nullJSON, &null)
 	maybePanic(err)
 	assertNullFloat32(t, null, "null json")
+
+	var bf Float32
+	err = json.Unmarshal(blankStringJSON, &bf)
+	maybePanic(err)
+	assertNullFloat32(t, bf, "blank json string")
 
 	var badType Float32
 	err = json.Unmarshal(boolJSON, &badType)

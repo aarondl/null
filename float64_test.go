@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	float64JSON = []byte(`1.2345`)
+	float64JSON       = []byte(`1.2345`)
+	float64StringJSON = []byte(`"1.2345"`)
 )
 
 func TestFloat64From(t *testing.T) {
@@ -35,10 +36,20 @@ func TestUnmarshalFloat64(t *testing.T) {
 	maybePanic(err)
 	assertFloat64(t, f, "float64 json")
 
+	var sf Float64
+	err = json.Unmarshal(float64StringJSON, &sf)
+	maybePanic(err)
+	assertFloat64(t, sf, "float64 string json")
+
 	var null Float64
 	err = json.Unmarshal(nullJSON, &null)
 	maybePanic(err)
 	assertNullFloat64(t, null, "null json")
+
+	var bf Float64
+	err = json.Unmarshal(blankStringJSON, &bf)
+	maybePanic(err)
+	assertNullFloat64(t, bf, "blank json string")
 
 	var badType Float64
 	err = json.Unmarshal(boolJSON, &badType)
