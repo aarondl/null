@@ -53,7 +53,7 @@ func (u *Uint64) UnmarshalJSON(data []byte) error {
 	}
 	switch x := v.(type) {
 	case float64:
-		// Unmarshal again, directly to Uint64, to avoid intermediate float64
+		// Unmarshal again, directly to uint64, to avoid intermediate float64
 		err = json.Unmarshal(data, &u.Uint64)
 	case string:
 		str := string(x)
