@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"reflect"
 	"strconv"
 
 	"github.com/volatiletech/null/v8/convert"
@@ -46,18 +47,40 @@ func (u *Uint8) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var x uint64
-	if err := json.Unmarshal(data, &x); err != nil {
+	var err error
+	var v interface{}
+	if err = json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 
-	if x > math.MaxUint8 {
-		return fmt.Errorf("json: %d overflows max uint8 value", x)
+	var i uint64
+	switch x := v.(type) {
+	case float64:
+		// Unmarshal again, directly to uint64, to avoid intermediate float64
+		err = json.Unmarshal(data, &i)
+	case string:
+		str := string(x)
+		if len(str) == 0 {
+			u.Valid = false
+			return nil
+		}
+
+		i, err = strconv.ParseUint(str, 10, 8)
+	case nil:
+		u.Valid = false
+		return nil
+	default:
+		err = fmt.Errorf("json: cannot unmarshal %v into Go value of type null.Uint8", reflect.TypeOf(v).Name())
 	}
 
-	u.Uint8 = uint8(x)
-	u.Valid = true
-	return nil
+	if i > math.MaxUint8 {
+		return fmt.Errorf("json: %d overflows max uint8 value", i)
+	}
+
+	u.Uint8 = uint8(i)
+	u.Valid = (err == nil) && (u.Uint8 != 0)
+	return err
+
 }
 
 // UnmarshalText implements encoding.TextUnmarshaler.

@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
+	"reflect"
 	"strconv"
 
 	"github.com/volatiletech/null/v8/convert"
@@ -44,12 +46,31 @@ func (u *Uint64) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	if err := json.Unmarshal(data, &u.Uint64); err != nil {
+	var err error
+	var v interface{}
+	if err = json.Unmarshal(data, &v); err != nil {
 		return err
 	}
+	switch x := v.(type) {
+	case float64:
+		// Unmarshal again, directly to uint64, to avoid intermediate float64
+		err = json.Unmarshal(data, &u.Uint64)
+	case string:
+		str := string(x)
+		if len(str) == 0 {
+			u.Valid = false
+			return nil
+		}
+		u.Uint64, err = strconv.ParseUint(str, 10, 64)
+	case nil:
+		u.Valid = false
+		return nil
+	default:
+		err = fmt.Errorf("json: cannot unmarshal %v into Go value of type null.Uint64", reflect.TypeOf(v).Name())
+	}
 
-	u.Valid = true
-	return nil
+	u.Valid = (err == nil) && (u.Uint64 != 0)
+	return err
 }
 
 // UnmarshalText implements encoding.TextUnmarshaler.
