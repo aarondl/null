@@ -172,6 +172,18 @@ func TestUint16Scan(t *testing.T) {
 	assertNullUint16(t, null, "scanned null")
 }
 
+func TestUint16ValueOrDefault(t *testing.T) {
+	valid := NewUint16(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewUint16(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertUint16(t *testing.T, i Uint16, from string) {
 	if i.Uint16 != 65534 {
 		t.Errorf("bad %s uint16: %d ≠ %d\n", from, i.Uint16, 65534)

@@ -145,6 +145,18 @@ func TestFloat64Scan(t *testing.T) {
 	assertNullFloat64(t, null, "scanned null")
 }
 
+func TestFloat64ValueOrDefault(t *testing.T) {
+	valid := NewFloat64(1.0, true)
+	if valid.ValueOrDefault() != 1.0 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewFloat64(1.0, false)
+	if invalid.ValueOrDefault() != 0.0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertFloat64(t *testing.T, f Float64, from string) {
 	if f.Float64 != 1.2345 {
 		t.Errorf("bad %s float64: %f ≠ %f\n", from, f.Float64, 1.2345)

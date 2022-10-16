@@ -172,6 +172,18 @@ func TestUint32Scan(t *testing.T) {
 	assertNullUint32(t, null, "scanned null")
 }
 
+func TestUint32ValueOrDefault(t *testing.T) {
+	valid := NewUint32(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewUint32(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertUint32(t *testing.T, i Uint32, from string) {
 	if i.Uint32 != 4294967294 {
 		t.Errorf("bad %s uint32: %d ≠ %d\n", from, i.Uint32, 4294967294)

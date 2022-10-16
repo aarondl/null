@@ -157,6 +157,18 @@ func TestUint64Scan(t *testing.T) {
 	assertNullUint64(t, i, "scanned null")
 }
 
+func TestUint64ValueOrDefault(t *testing.T) {
+	valid := NewUint64(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewUint64(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertUint64(t *testing.T, i Uint64, from string) {
 	if i.Uint64 != 18446744073709551614 {
 		t.Errorf("bad %s uint64: %d ≠ %d\n", from, i.Uint64, uint64(18446744073709551614))

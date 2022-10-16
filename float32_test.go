@@ -145,6 +145,18 @@ func TestFloat32Scan(t *testing.T) {
 	assertNullFloat32(t, null, "scanned null")
 }
 
+func TestFloat32ValueOrDefault(t *testing.T) {
+	valid := NewFloat32(1.0, true)
+	if valid.ValueOrDefault() != 1.0 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewFloat32(1.0, false)
+	if invalid.ValueOrDefault() != 0.0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertFloat32(t *testing.T, f Float32, from string) {
 	if f.Float32 != 1.2345 {
 		t.Errorf("bad %s float32: %f ≠ %f\n", from, f.Float32, 1.2345)

@@ -162,6 +162,18 @@ func TestBoolScan(t *testing.T) {
 	assertNullBool(t, null, "scanned null")
 }
 
+func TestBoolValueOrDefault(t *testing.T) {
+	valid := NewBool(true, true)
+	if valid.ValueOrDefault() != true {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewBool(true, false)
+	if invalid.ValueOrDefault() != false {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertBool(t *testing.T, b Bool, from string) {
 	if b.Bool != true {
 		t.Errorf("bad %s bool: %v ≠ %v\n", from, b.Bool, true)

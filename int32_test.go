@@ -172,6 +172,18 @@ func TestInt32Scan(t *testing.T) {
 	assertNullInt32(t, null, "scanned null")
 }
 
+func TestInt32ValueOrDefault(t *testing.T) {
+	valid := NewInt32(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewInt32(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertInt32(t *testing.T, i Int32, from string) {
 	if i.Int32 != 2147483646 {
 		t.Errorf("bad %s int32: %d ≠ %d\n", from, i.Int32, 2147483646)

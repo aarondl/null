@@ -154,6 +154,18 @@ func TestIntScan(t *testing.T) {
 	assertNullInt(t, null, "scanned null")
 }
 
+func TestIntValueOrDefault(t *testing.T) {
+	valid := NewInt(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewInt(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertInt(t *testing.T, i Int, from string) {
 	if i.Int != 12345 {
 		t.Errorf("bad %s int: %d ≠ %d\n", from, i.Int, 12345)

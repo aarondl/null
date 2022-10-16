@@ -139,3 +139,11 @@ func (t Time) Value() (driver.Value, error) {
 	}
 	return t.Time, nil
 }
+
+// ValueOrDefault returns the inner value if valid, otherwise default.
+func (t Time) ValueOrDefault() time.Time {
+	if !t.Valid {
+		return time.Time{}
+	}
+	return t.Time
+}

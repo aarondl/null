@@ -172,6 +172,18 @@ func TestInt64Scan(t *testing.T) {
 	assertNullInt64(t, null, "scanned null")
 }
 
+func TestInt64ValueOrDefault(t *testing.T) {
+	valid := NewInt64(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewInt64(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertInt64(t *testing.T, i Int64, from string) {
 	if i.Int64 != 9223372036854775806 {
 		t.Errorf("bad %s int64: %d ≠ %d\n", from, i.Int64, 9223372036854775806)
