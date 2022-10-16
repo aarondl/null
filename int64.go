@@ -132,3 +132,11 @@ func (i Int64) Value() (driver.Value, error) {
 	}
 	return i.Int64, nil
 }
+
+// ValueOrDefault returns the inner value if valid, otherwise default.
+func (i Int64) ValueOrDefault() int64 {
+	if !i.Valid {
+		return 0
+	}
+	return i.Int64
+}

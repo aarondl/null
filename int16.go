@@ -141,3 +141,11 @@ func (i Int16) Value() (driver.Value, error) {
 	}
 	return int64(i.Int16), nil
 }
+
+// ValueOrDefault returns the inner value if valid, otherwise default.
+func (i Int16) ValueOrDefault() int16 {
+	if !i.Valid {
+		return 0
+	}
+	return i.Int16
+}

@@ -132,3 +132,11 @@ func (f Float64) Value() (driver.Value, error) {
 	}
 	return f.Float64, nil
 }
+
+// ValueOrDefault returns the inner value if valid, otherwise zero.
+func (t Float64) ValueOrDefault() float64 {
+	if !t.Valid {
+		return 0.0
+	}
+	return t.Float64
+}

@@ -145,6 +145,18 @@ func TestByteScan(t *testing.T) {
 	assertNullByte(t, null, "scanned null")
 }
 
+func TestByteValueOrDefault(t *testing.T) {
+	valid := NewByte(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewByte(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertByte(t *testing.T, i Byte, from string) {
 	if i.Byte != 'b' {
 		t.Errorf("bad %s int: %d ≠ %d\n", from, i.Byte, 'b')

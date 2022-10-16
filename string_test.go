@@ -174,6 +174,18 @@ func TestStringScan(t *testing.T) {
 	assertNullStr(t, null, "scanned null")
 }
 
+func TestStringValueOrDefault(t *testing.T) {
+	valid := NewString("test", true)
+	if valid.ValueOrDefault() != "test" {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewString("test", false)
+	if invalid.ValueOrDefault() != "" {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func maybePanic(err error) {
 	if err != nil {
 		panic(err)

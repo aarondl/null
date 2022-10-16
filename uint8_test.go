@@ -172,6 +172,18 @@ func TestUint8Scan(t *testing.T) {
 	assertNullUint8(t, null, "scanned null")
 }
 
+func TestUint8ValueOrDefault(t *testing.T) {
+	valid := NewUint8(1, true)
+	if valid.ValueOrDefault() != 1 {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewUint8(1, false)
+	if invalid.ValueOrDefault() != 0 {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
+}
+
 func assertUint8(t *testing.T, i Uint8, from string) {
 	if i.Uint8 != 254 {
 		t.Errorf("bad %s uint8: %d ≠ %d\n", from, i.Uint8, 254)

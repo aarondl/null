@@ -3,6 +3,7 @@ package null
 import (
 	"bytes"
 	"encoding/json"
+	"reflect"
 	"testing"
 )
 
@@ -151,6 +152,18 @@ func TestBytesScan(t *testing.T) {
 	err = null.Scan(nil)
 	maybePanic(err)
 	assertNullBytes(t, null, "scanned null")
+}
+
+func TestBytesValueOrDefault(t *testing.T) {
+	valid := NewBytes([]byte{1}, true)
+	if !reflect.DeepEqual(valid.ValueOrDefault(), []byte{1}) {
+		t.Error("unexpected ValueOrDefault", valid.ValueOrDefault())
+	}
+
+	invalid := NewBytes([]byte{1}, false)
+	if reflect.DeepEqual(valid.ValueOrDefault(), []byte{}) {
+		t.Error("unexpected ValueOrDefault", invalid.ValueOrDefault())
+	}
 }
 
 func assertBytes(t *testing.T, i Bytes, from string) {

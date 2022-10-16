@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"database/sql/driver"
 	"encoding/json"
-
 	"github.com/volatiletech/null/v9/convert"
 )
 
@@ -138,4 +137,12 @@ func (b Bytes) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return b.Bytes, nil
+}
+
+// ValueOrDefault returns the inner value if valid, otherwise default.
+func (t Bytes) ValueOrDefault() []byte {
+	if !t.Valid {
+		return []byte{}
+	}
+	return t.Bytes
 }

@@ -137,3 +137,11 @@ func (u Uint) Value() (driver.Value, error) {
 	}
 	return int64(u.Uint), nil
 }
+
+// ValueOrDefault returns the inner value if valid, otherwise default.
+func (u Uint) ValueOrDefault() uint {
+	if !u.Valid {
+		return 0
+	}
+	return u.Uint
+}
