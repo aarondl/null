@@ -5,7 +5,7 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/volatiletech/null/v8/convert"
+	"github.com/aarondl/null/v8/convert"
 )
 
 // NullBytes is a global byte slice of JSON null

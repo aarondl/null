@@ -1,5 +1,5 @@
-module github.com/volatiletech/null/v8
+module github.com/aarondl/null/v8
 
 go 1.14
 
-require github.com/volatiletech/randomize v0.0.1
+require github.com/aarondl/randomize v0.0.2

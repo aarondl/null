@@ -1,4 +1,4 @@
-## null [![GoDoc](https://godoc.org/github.com/volatiletech/null?status.svg)](https://godoc.org/github.com/volatiletech/null) [![Coverage](http://gocover.io/_badge/github.com/volatiletech/null)](http://gocover.io/github.com/volatiletech/null)
+## null [![GoDoc](https://godoc.org/github.com/aarondl/null?status.svg)](https://godoc.org/github.com/aarondl/null) [![Coverage](http://gocover.io/_badge/github.com/aarondl/null)](http://gocover.io/github.com/aarondl/null)
 
 `null` is a library with reasonable options for dealing with nullable SQL and
 JSON values.
@@ -20,7 +20,7 @@ please stop using gopkg.in and ensure you're using `vgo`, `dep` or vendoring to
 version null.
 
 ```
-go get github.com/volatiletech/null/v8
+go get github.com/aarondl/null/v8
 ```
 
 ### Usage

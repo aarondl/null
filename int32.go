@@ -8,8 +8,8 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/volatiletech/null/v8/convert"
-	"github.com/volatiletech/randomize"
+	"github.com/aarondl/null/v8/convert"
+	"github.com/aarondl/randomize"
 )
 
 // Int32 is an nullable int32.
